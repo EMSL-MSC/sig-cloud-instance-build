@@ -22,7 +22,7 @@ volgroup VolGroup00 --pesize=32768 pv.2
 logvol / --fstype xfs --name=LogVol00 --vgname=VolGroup00 --size=1024 --grow
 logvol swap --fstype swap --name=LogVol01 --vgname=VolGroup00 --size=256 --grow --maxsize=512
 reboot
-%packages  --excludedocs --nobase
+%packages --excludedocs --nobase
 cloud-init
 
 %end
