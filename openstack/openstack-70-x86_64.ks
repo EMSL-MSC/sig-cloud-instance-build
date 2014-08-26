@@ -13,7 +13,7 @@ firewall --service=ssh
 authconfig --enableshadow --passalgo=sha512 --enablefingerprint
 selinux --enforcing
 timezone --utc Europe/London
-bootloader --location=mbr --driveorder=sda
+bootloader --location=mbr --driveorder=vda
 zerombr
 clearpart --all --initlabel
 part /boot --fstype xfs --size=400
