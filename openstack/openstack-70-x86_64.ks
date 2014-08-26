@@ -14,7 +14,7 @@ authconfig --enableshadow --passalgo=sha512 --enablefingerprint
 selinux --enforcing
 timezone --utc Europe/London
 bootloader --location=mbr --driveorder=sda
-zerombr yes
+zerombr
 clearpart --all --initlabel
 part /boot --fstype xfs --size=400
 part pv.2 --size=5000 --grow
