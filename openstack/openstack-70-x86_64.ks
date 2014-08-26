@@ -16,10 +16,10 @@ timezone --utc Europe/London
 bootloader --location=mbr --driveorder=vda
 zerombr
 clearpart --all --initlabel
-part /boot --fstype xfs --size=400
+part /boot --fstype ext4 --size=400
 part pv.2 --size=5000 --grow
 volgroup VolGroup00 --pesize=32768 pv.2
-logvol / --fstype ext4 --name=LogVol00 --vgname=VolGroup00 --size=1024 --grow
+logvol / --fstype xfs --name=LogVol00 --vgname=VolGroup00 --size=1024 --grow
 logvol swap --fstype swap --name=LogVol01 --vgname=VolGroup00 --size=256 --grow --maxsize=512
 reboot
 %packages  --excludedocs --nobase
