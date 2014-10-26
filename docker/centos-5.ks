@@ -14,7 +14,7 @@ repo --name="selinux" --baseurl=http://mirror.centos.org/centos/5/centosplus/x86
 clearpart --all --initlabel
 part / --fstype ext4 --size=1024 --grow
 reboot
-%packages  --excludedocs --nobase
+%packages  --nobase
 vim-minimal
 yum
 bash
@@ -35,12 +35,12 @@ libselinux-utils
 
 %post --nochroot --erroronfail
 # We need to convert the rpmdb, because rpm in c5 gets confused
-if [ $(file $INSTALL_ROOT/var/lib/rpm/Packages | grep -c "version 9") -ne 0 ]; then
-  pushd $INSTALL_ROOT/var/lib/rpm 2>/dev/null || exit 1
+if file "$INSTALL_ROOT"/var/lib/rpm/Packages | grep -q "version 9"; then
+  pushd "$INSTALL_ROOT"/var/lib/rpm 2>/dev/null || exit 1
   rm -f __db*
   for f in * ; do
-    db_dump $f | db43_load $f.43 || exit 1
-    mv $f.43 $f
+    db_dump "$f" | db43_load "$f".43 || exit 1
+    mv "$f".43 "$f"
   done
   popd 2>/dev/null
 fi
@@ -66,17 +66,23 @@ rm -rf /boot
 # anaconda install them
 rpm -e policycoreutils passwd openldap libuser iscsi-initiator-utils \
   mkinitrd
-    
 
+
+# Can't remove docs on c5 due to a bug similar to 
+# https://bugzilla.redhat.com/show_bug.cgi?id=515911
 # Keep yum from installing documentation. It takes up too much space.
 #sed -i '/distroverpkg=centos-release/a tsflags=nodocs' /etc/yum.conf
 
+#Generate installtime file record
+/bin/date +%Y%m%d_%H%M > /etc/BUILDTIME
 
 
-# nuking the locales breaks things. Lets not do that anymore
-# strip most of the languages from the archive.
+
+# nuking the locales breaks things. Lets not do that anymore strip
+# most of the languages from the archive. stolen from
+# https://bugzilla.redhat.com/show_bug.cgi?id=156477#c28
 localedef --delete-from-archive $(localedef --list-archive | \
-grep -v -i ^en | xargs )
+    grep -v -i ^en | xargs )
 # prep the archive template
 mv /usr/lib/locale/locale-archive  /usr/lib/locale/locale-archive.tmpl
 # rebuild archive
@@ -85,8 +91,7 @@ mv /usr/lib/locale/locale-archive  /usr/lib/locale/locale-archive.tmpl
 :>/usr/lib/locale/locale-archive.tmpl
 
 #  man pages and documentation
-find /usr/share/{man,doc,info,gnome/help} \
-        -type f | xargs /bin/rm
+find /usr/share/{man,doc,info,gnome/help} -type f -delete
 
 #  sln
 rm -f /sbin/sln
