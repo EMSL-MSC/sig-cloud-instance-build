@@ -4,7 +4,7 @@ repo --name="Updates" --baseurl=http://mirror.centos.org/centos/7/updates/x86_64
 repo --name="FastTrack" --baseurl=http://mirror.centos.org/centos/7/fasttrack/x86_64/
 repo --name="Plus" --baseurl=http://mirror.centos.org/centos/7/centosplus/x86_64/
 repo --name="Extras" --baseurl=http://mirror.centos.org/centos/7/extras/x86_64/
-repo --name="EPEL" --baseurl=http://dl.fedoraproject.org/pub/epel/beta/7/x86_64/
+repo --name="EPEL" --baseurl=http://dl.fedoraproject.org/pub/epel/7/x86_64/
 lang en_US.UTF-8
 keyboard uk
 network --device eth0 --bootproto dhcp
