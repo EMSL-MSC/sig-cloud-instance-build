@@ -252,10 +252,10 @@ echo 'user: root' >> /mnt/sysimage/etc/cloud/cloud.cfg.d/01_centos.cfg
 %end
 
 %post
-useradd -g mock -s /bin/bash -m cloud
+useradd -g mock -s /bin/bash -m cloud-user
 yum -y install https://opscode-omnibus-packages.s3.amazonaws.com/el/6/x86_64/chefdk-0.3.0-1.x86_64.rpm
 yum -y install https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.5_x86_64.rpm
-su - cloud -c '/opt/chefdk/embedded/bin/gem install knife-openstack kitchen-openstack knife-backup'
-su - cloud -c 'vagrant plugin install vagrant-openstack-provider'
-su - cloud -c 'vagrant plugin install vagrant-berkshelf'
+su - cloud-user -c '/opt/chefdk/embedded/bin/gem install knife-openstack kitchen-openstack knife-backup'
+su - cloud-user -c 'vagrant plugin install vagrant-openstack-provider'
+su - cloud-user -c 'vagrant plugin install vagrant-berkshelf'
 %end
