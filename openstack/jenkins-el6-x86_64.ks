@@ -219,6 +219,7 @@ reboot
 -yum-plugin-security
 -yum-utils
 -zip
+bzip2
 cloud-init
 epel-release
 mock

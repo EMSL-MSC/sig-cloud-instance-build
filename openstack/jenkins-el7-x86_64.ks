@@ -37,6 +37,7 @@ libffi-devel
 make
 wget
 yum-utils
+bzip2
 %end
 
 %post --log=/root/post.log --nochroot
