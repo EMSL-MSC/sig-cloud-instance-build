@@ -47,26 +47,19 @@ rm -f /mnt/sysimage//etc/udev/rules.d/*-persistent-net.rules
 touch /mnt/sysimage/etc/udev/rules.d/75-persistent-net-generator.rules
 echo NOZEROCONF=yes >> /mnt/sysimage/etc/sysconfig/network
 
-sed -i 's/rhgb quiet/quiet console=tty0 console=ttyS0,115200n8/g' /boot/grub/grub.conf
-sed -i 's/^hiddenmenu$/hiddenmenu\nserial\ --unit=0\ --speed=115200\ --word=8\ --parity=no\ --stop=1\nterminal\ --timeout=5\ console\ serial/g' /boot/grub/grub.conf
+sed -i 's/rhgb quiet/quiet console=tty0 console=ttyS0,115200n8/g' /mnt/sysimage/boot/grub/grub.conf
+sed -i 's/^hiddenmenu$/hiddenmenu\nserial\ --unit=0\ --speed=115200\ --word=8\ --parity=no\ --stop=1\nterminal\ --timeout=5\ console\ serial/g' /mnt/sysimage/boot/grub/grub.conf
 
 #handle the cloud-init stuff
-echo 'disable_root: 0' > /etc/cloud/cloud.cfg.d/01_centos.cfg
-echo 'user: root' >> /etc/cloud/cloud.cfg.d/01_centos.cfg
-
-rm -f /mnt/sysimage/root/*
+echo 'disable_root: 0' > /mnt/sysimage/etc/cloud/cloud.cfg.d/01_centos.cfg
+echo 'user: root' >> /mnt/sysimage/etc/cloud/cloud.cfg.d/01_centos.cfg
 %end
 
 %post
-useradd -g mock -s /bin/bash -m jenkins
-mkdir /home/jenkins/.ssh
-chown jenkins:jenkins /home/jenkins/.ssh
-chmod 700 /home/jenkins/.ssh
-echo 'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA0kDAVYQ7sL8ekiSlZV15a/Vs8niGFP1HJIFVnVpEk01XiFSeFtgaHekV+xAhDM7HgwaemV8QnvfcUDB25JcmosHo5vmHsRpLVt3uxXVmNufPluyoz2l4BUQc7hzr8Lwno9pZnBu0wq7W8MaxdofHF8q4dwdk+3ZrybHsw6qwcAxmuXXQxTdt7EJDsqTPDU9V+vpCtQRt07YcHjSO0/IaBM6WYjV3bFT0MnwBT0wX5DS9T8TpWXc61tpXQLBkplolQhwBmgV2PaTUodC5oMwD8JVPnIWxYzGd/vtNbdEzDzxCHdzn4E2J9kxwZLAvmIJhN0WDv74oLfCYDEsTQnKe1Q== dmlb2000@c0' > /home/jenkins/.ssh/authorized_keys
-chmod 600 /home/jenkins/.ssh/authorized_keys
+useradd -g mock -s /bin/bash -m centos
 yum -y install https://opscode-omnibus-packages.s3.amazonaws.com/el/6/x86_64/chefdk-0.3.0-1.x86_64.rpm
 yum -y install https://dl.bintray.com/mitchellh/vagrant/vagrant_1.6.5_x86_64.rpm
-su - jenkins -c '/opt/chefdk/embedded/bin/gem install knife-openstack kitchen-openstack knife-backup'
-su - jenkins -c 'vagrant plugin install vagrant-openstack-provider'
-su - jenkins -c 'vagrant plugin install vagrant-berkshelf'
+su - centos -c '/opt/chefdk/embedded/bin/gem install knife-openstack kitchen-openstack knife-backup'
+su - centos -c 'vagrant plugin install vagrant-openstack-provider'
+su - centos -c 'vagrant plugin install vagrant-berkshelf'
 %end
