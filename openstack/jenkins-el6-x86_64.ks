@@ -246,6 +246,9 @@ echo NOZEROCONF=yes >> /mnt/sysimage/etc/sysconfig/network
 sed -i 's/rhgb quiet/quiet console=tty0 console=ttyS0,115200n8/g' /mnt/sysimage/boot/grub/grub.conf
 sed -i 's/^hiddenmenu$/hiddenmenu\nserial\ --unit=0\ --speed=115200\ --word=8\ --parity=no\ --stop=1\nterminal\ --timeout=5\ console\ serial/g' /mnt/sysimage/boot/grub/grub.conf
 
+#handle the cloud-init stuff
+echo 'disable_root: 0' > /mnt/sysimage/etc/cloud/cloud.cfg.d/01_centos.cfg
+echo 'user: root' >> /mnt/sysimage/etc/cloud/cloud.cfg.d/01_centos.cfg
 %end
 
 %post
