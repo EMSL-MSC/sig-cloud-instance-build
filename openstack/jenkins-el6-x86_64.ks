@@ -1,5 +1,5 @@
 install
-url --url=http://mirrors.karan.org/centos/6/os/x86_64/
+url --url=http://mirror.centos.org/centos/6/os/x86_64/
 lang en_US.UTF-8
 keyboard uk
 network --device eth0 --bootproto dhcp
@@ -9,7 +9,7 @@ authconfig --enableshadow --passalgo=sha512 --enablefingerprint
 selinux --enforcing
 timezone --utc Europe/London
 bootloader --location=mbr --driveorder=sda
-repo --name="CentOS" --baseurl=http://mirrors.centos.org/centos/6/os/x86_64/ --cost=100
+repo --name="CentOS" --baseurl=http://mirror.centos.org/centos/6/os/x86_64/ --cost=100
 repo --name="CentOS Plus" --baseurl=http://mirror.centos.org/centos/6/centosplus/x86_64/ --cost=100
 repo --name="CentOS Updates" --baseurl=http://mirror.centos.org/centos/6/updates/x86_64/ --cost=100
 repo --name="CentOS FastTrack" --baseurl=http://mirror.centos.org/centos/6/fasttrack/x86_64/ --cost=100
