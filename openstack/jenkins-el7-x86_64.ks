@@ -23,6 +23,7 @@ logvol / --fstype xfs --name=LogVol00 --vgname=VolGroup00 --size=1024 --grow
 logvol swap --fstype swap --name=LogVol01 --vgname=VolGroup00 --size=256 --grow --maxsize=512
 reboot
 %packages --excludedocs --nobase
+patch
 cloud-init
 epel-release
 mock
