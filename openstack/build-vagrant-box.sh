@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 
-BUILDDIR=$(mktemp -d --tmpdir $PWD)
+BUILDDIR=$(mktemp -d --tmpdir=$PWD tmp.XXXXXX)
 
 cat >$BUILDDIR/Vagrantfile <<EOF
 # -*- mode: ruby -*-
@@ -13,6 +13,9 @@ Vagrant.configure("2") do |config|
     libvirt.connect_via_ssh = false
     libvirt.username = "root"
     libvirt.storage_pool_name = "default"
+    libvirt.host = ""
+  end
+end
 EOF
 
 cat >$BUILDDIR/metadata.json <<EOF
