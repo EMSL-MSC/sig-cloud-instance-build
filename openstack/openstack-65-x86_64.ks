@@ -9,8 +9,10 @@ authconfig --enableshadow --passalgo=sha512 --enablefingerprint
 selinux --enforcing
 timezone --utc Europe/London
 bootloader --location=mbr --driveorder=sda
-repo --name="CentOS" --baseurl=http://mirrors.karan.org/centos/6/os/x86_64/ --cost=100
-repo --name="cloudinit" --baseurl=https://nazar.karan.org/results/misc/ --cost=100
+repo --name="CentOS" --baseurl=http://mirror.centos.org/centos/6/os/x86_64/ --cost=100
+repo --name="CentOS Updates" --baseurl=http://mirror.centos.org/centos/6/updates/x86_64/ --cost=100
+repo --name="CentOS Extras" --baseurl=http://mirror.centos.org/centos/6/extras/x86_64/ --cost=100
+repo --name="EPEL" --baseurl=http://dl.fedoraproject.org/pub/epel/6/x86_64/ --cost=100
 zerombr yes
 clearpart --all --initlabel
 part /boot --fstype ext3 --size=400

@@ -7,9 +7,8 @@ rootpw --iscrypted $1$UKLtvLuY$kka6S665oCFmU7ivSDZzU.
 authconfig --enableshadow --passalgo=sha512
 selinux --enforcing
 timezone --utc UTC
-repo --name="CentOS" --baseurl=http://mirror.centos.org/centos/5/os/x86_64/ --cost=100
-repo --name="Updates" --baseurl=http://mirror.centos.org/centos/5/updates/x86_64/ --cost=100
-repo --name="selinux" --baseurl=http://mirror.centos.org/centos/5/centosplus/x86_64/ --cost=100
+repo --name="CentOS" --baseurl=http://mirror.centos.org/centos/5.11/os/x86_64/ --cost=100
+repo --name="selinux" --baseurl=http://mirror.centos.org/centos/5.11/centosplus/x86_64/ --cost=100
 
 clearpart --all --initlabel
 part / --fstype ext4 --size=1024 --grow

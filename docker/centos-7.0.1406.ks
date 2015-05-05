@@ -5,9 +5,8 @@ rootpw --iscrypted $1$UKLtvLuY$kka6S665oCFmU7ivSDZzU.
 timezone UTC --isUtc 
 selinux --enforcing
 firewall --disabled
-repo --name="CentOS" --baseurl=http://mirror.centos.org/centos/7/os/x86_64/ --cost=100
-repo --name="Updates" --baseurl=http://mirror.centos.org/centos/7/updates/x86_64/ --cost=100
-repo --name="systemdcontainer" --baseurl=http://dev.centos.org/centos/7/systemd-container/ --cost=100
+repo --name="CentOS" --baseurl=http://mirror.centos.org/centos/7.0.1406/os/x86_64/ --cost=100
+repo --name="fakesystemd" --baseurl=http://dev.centos.org/centos/7/fakesystemd/ --cost=100
 
 
 clearpart --all --initlabel
@@ -32,7 +31,7 @@ grub2
 iputils
 iproute
 -systemd
-systemd-container
+fakesystemd
 firewalld
 rootfiles
 
@@ -71,10 +70,6 @@ rm -rf /etc/firewalld
 
 rm -rf /boot
 
-#delete a few systemd things
-rm -rf /etc/machine-id
-rm -rf /usr/lib/systemd/system/multi-user.target.wants/getty.target
-rm -rf /usr/lib/systemd/system/multi-user.target.wants/systemd-logind.service
 
 # Add tsflags to keep yum from installing docs
 
@@ -115,12 +110,14 @@ rm -f /sbin/sln
 #  ldconfig
 rm -rf /etc/ld.so.cache
 rm -rf /var/cache/ldconfig/*
-rm -rf /var/cache/yum/* 
+
 
 # Clean up after the installer.
 rm -f /etc/rpm/macros.imgcreate
 
 # temp fix for systemd /run/lock
+mkdir /run/lock
+chmod 755 /run/lock
 
 
 %end
