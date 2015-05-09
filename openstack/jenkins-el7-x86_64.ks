@@ -39,6 +39,7 @@ make
 wget
 yum-utils
 bzip2
+docker
 %end
 
 %post --log=/root/post.log --nochroot
@@ -56,7 +57,9 @@ sed -i 's/^hiddenmenu$/hiddenmenu\nserial\ --unit=0\ --speed=115200\ --word=8\ -
 %post
 set -x
 exec 1>/var/log/ks-post.log 2>&1
-useradd -g mock -s /bin/bash -m centos
+chkconfig docker on
+groupadd --system docker
+useradd -g mock -G docker -s /bin/bash -m centos
 yum -y install https://opscode-omnibus-packages.s3.amazonaws.com/el/6/x86_64/chefdk-0.5.1-1.el6.x86_64.rpm
 yum -y install https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.2_x86_64.rpm
 su - centos -c '/opt/chefdk/embedded/bin/gem install knife-openstack kitchen-openstack knife-backup'
