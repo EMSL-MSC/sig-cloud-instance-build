@@ -62,6 +62,11 @@ groupadd --system docker
 useradd -g mock -G docker -s /bin/bash -m centos
 yum -y install https://opscode-omnibus-packages.s3.amazonaws.com/el/6/x86_64/chefdk-0.5.1-1.el6.x86_64.rpm
 yum -y install https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.2_x86_64.rpm
+curl -o /tmp/foo.zip https://dl.bintray.com/mitchellh/packer/packer_0.7.5_linux_amd64.zip
+pushd /usr/local/bin
+unzip /tmp/foo.zip
+popd
+rm -f /tmp/foo.zip
 su - centos -c '/opt/chefdk/embedded/bin/gem install knife-openstack kitchen-openstack knife-backup'
 su - centos -c 'vagrant plugin install vagrant-openstack-provider'
 su - centos -c 'vagrant plugin install vagrant-berkshelf'
