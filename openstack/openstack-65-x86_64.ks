@@ -24,6 +24,8 @@ reboot
 %packages --nobase --excludedocs
 cloud-init
 openssh-clients
+openssh-server
+
 
 %end
 
