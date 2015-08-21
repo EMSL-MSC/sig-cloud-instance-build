@@ -23,6 +23,7 @@ logvol swap --fstype swap --name=LogVol01 --vgname=VolGroup00 --size=256 --grow 
 reboot
 %packages --nobase --excludedocs
 cloud-init
+openssh-clients
 
 %end
 
