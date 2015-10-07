@@ -256,7 +256,9 @@ exec 1>/var/log/ks-post.log 2>&1
 useradd -g mock -s /bin/bash -m centos
 yum -y install https://opscode-omnibus-packages.s3.amazonaws.com/el/6/x86_64/chefdk-0.8.1-1.el6.x86_64.rpm
 yum -y install https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.4_x86_64.rpm
-su - centos -c '/opt/chefdk/embedded/bin/gem install knife-openstack kitchen-openstack knife-backup'
+su - centos -c '/opt/chefdk/embedded/bin/gem install knife-openstack'
+su - centos -c '/opt/chefdk/embedded/bin/gem install kitchen-openstack -v 1.8.1'
+su - centos -c '/opt/chefdk/embedded/bin/gem install knife-backup'
 su - centos -c 'vagrant plugin install vagrant-openstack-provider'
 su - centos -c 'vagrant plugin install vagrant-berkshelf'
 %end

@@ -67,7 +67,9 @@ pushd /usr/local/bin
 unzip /tmp/foo.zip
 popd
 rm -f /tmp/foo.zip
-su - centos -c '/opt/chefdk/embedded/bin/gem install knife-openstack kitchen-openstack knife-backup'
+su - centos -c '/opt/chefdk/embedded/bin/gem install knife-openstack'
+su - centos -c '/opt/chefdk/embedded/bin/gem install kitchen-openstack -v 1.8.1'
+su - centos -c '/opt/chefdk/embedded/bin/gem install knife-backup'
 su - centos -c 'vagrant plugin install vagrant-openstack-provider'
 su - centos -c 'vagrant plugin install vagrant-berkshelf'
 %end
