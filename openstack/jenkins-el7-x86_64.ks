@@ -60,7 +60,7 @@ exec 1>/var/log/ks-post.log 2>&1
 chkconfig docker on
 groupadd --system docker
 useradd -g mock -G docker -s /bin/bash -m centos
-yum -y install https://opscode-omnibus-packages.s3.amazonaws.com/el/7/x86_64/chefdk-0.8.1-1.el7.x86_64.rpm
+yum -y install https://opscode-omnibus-packages.s3.amazonaws.com/el/7/x86_64/chefdk-0.10.0-1.el7.x86_64.rpm
 yum -y install https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.4_x86_64.rpm
 curl -o /tmp/foo.zip https://dl.bintray.com/mitchellh/packer/packer_0.8.2_linux_amd64.zip
 pushd /usr/local/bin
