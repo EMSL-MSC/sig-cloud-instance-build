@@ -1,5 +1,5 @@
 install
-url --url=http://mirrors.karan.org/centos/6/os/x86_64/
+url --url=http://mirror.centos.org/centos/6/os/x86_64/
 lang en_US.UTF-8
 keyboard uk
 network --device eth0 --bootproto dhcp
