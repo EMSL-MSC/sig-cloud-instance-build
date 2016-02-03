@@ -5,9 +5,9 @@ rootpw --iscrypted $1$UKLtvLuY$kka6S665oCFmU7ivSDZzU.
 timezone UTC --isUtc 
 selinux --enforcing
 firewall --disabled
-repo --name="CentOS" --baseurl=http://mirror.centos.org/centos/7/os/x86_64/ --cost=100
-repo --name="Updates" --baseurl=http://mirror.centos.org/centos/7/updates/x86_64/ --cost=100
-repo --name="systemdcontainer" --baseurl=http://dev.centos.org/centos/7/systemd-container/ --cost=100
+repo --name="CentOS" --baseurl=http://mirror.centos.org/altarch/7/os/aarch64/
+repo --name="Updates" --baseurl=http://mirror.centos.org/altarch/7/updates/aarch64/
+repo --name="systemdcontainer" --baseurl=http://dev.centos.org/altarch/7/systemd-container/ --cost=100
 
 
 clearpart --all --initlabel
@@ -24,7 +24,7 @@ shadow-utils
 less
 -kernel*
 -*firmware
-grub2
+grub2-efi
 -os-prober
 -gettext*
 -bind-license
@@ -33,7 +33,6 @@ iputils
 iproute
 -systemd
 systemd-container
-firewalld
 rootfiles
 passwd
 
@@ -49,16 +48,13 @@ passwd -l root
 
 # cleanup unwanted stuff
 
-# ami-creator requires grub during the install, so we remove it (and
-# its dependencies) in %post 
-
 # some packages get installed even though we ask for them not to be,
 # and they don't have any external dependencies that should make
 # anaconda install them
 
 
 yum -y remove  grub2 centos-logos hwdata os-prober gettext* \
-  bind-license freetype kmod dracut passwd
+  bind-license freetype kmod dracut
 
 
 # firewalld is necessary for building on centos7 but it is not
@@ -74,6 +70,8 @@ rm -rf /boot
 
 #delete a few systemd things
 rm -rf /etc/machine-id
+rm -rf /usr/lib/systemd/system/multi-user.target.wants/getty.target
+rm -rf /usr/lib/systemd/system/multi-user.target.wants/systemd-logind.service
 
 # Add tsflags to keep yum from installing docs
 
@@ -101,8 +99,8 @@ mv /usr/lib/locale/locale-archive  /usr/lib/locale/locale-archive.tmpl
 
 
 #  man pages and documentation
-find /usr/share/{man,doc,info,gnome/help} \
-        -type f | xargs /bin/rm
+#find /usr/share/{man,doc} \
+#        -type f | xargs /bin/rm
 
 #  cracklib
 #find /usr/share/cracklib \
@@ -115,19 +113,6 @@ rm -f /sbin/sln
 rm -rf /etc/ld.so.cache
 rm -rf /var/cache/ldconfig/*
 rm -rf /var/cache/yum/* 
-
-# Create repo for systemd-container
-cat >/etc/yum.repos.d/systemd.repo <<EOF
-[systemdcontainer]
-name=CentOS-\$releasever - systemd-container
-baseurl=http://dev.centos.org/centos/7/systemd-container/
-gpgcheck=1
-enabled=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-
-EOF
-
-
 
 # Clean up after the installer.
 rm -f /etc/rpm/macros.imgcreate
