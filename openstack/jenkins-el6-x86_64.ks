@@ -254,8 +254,8 @@ sed -i 's/^hiddenmenu$/hiddenmenu\nserial\ --unit=0\ --speed=115200\ --word=8\ -
 set -x
 exec 1>/var/log/ks-post.log 2>&1
 useradd -g mock -s /bin/bash -m centos
-yum -y install https://opscode-omnibus-packages.s3.amazonaws.com/el/6/x86_64/chefdk-0.11.0-1.el6.x86_64.rpm
-yum -y install https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.4_x86_64.rpm
+yum -y install https://opscode-omnibus-packages.s3.amazonaws.com/el/6/x86_64/chefdk-0.16.28-1.el6.x86_64.rpm
+yum -y install https://dl.bintray.com/mitchellh/vagrant/vagrant_1.8.5_x86_64.rpm
 su - centos -c '/opt/chefdk/embedded/bin/gem install knife-openstack'
 su - centos -c '/opt/chefdk/embedded/bin/gem install kitchen-openstack -v 1.8.1'
 su - centos -c '/opt/chefdk/embedded/bin/gem install knife-backup'
