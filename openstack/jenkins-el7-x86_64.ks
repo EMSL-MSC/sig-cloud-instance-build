@@ -60,7 +60,7 @@ exec 1>/var/log/ks-post.log 2>&1
 chkconfig docker on
 groupadd --system docker
 useradd -g mock -G docker -s /bin/bash -m centos
-yum -y install https://opscode-omnibus-packages.s3.amazonaws.com/el/7/x86_64/chefdk-0.16.28-1.el7.x86_64.rpm
+yum -y install https://opscode-omnibus-packages.s3.amazonaws.com/el/7/x86_64/chefdk-0.18.30-1.el7.x86_64.rpm
 yum -y install https://dl.bintray.com/mitchellh/vagrant/vagrant_1.8.5_x86_64.rpm
 curl -o /tmp/foo.zip https://dl.bintray.com/mitchellh/packer/packer_0.8.2_linux_amd64.zip
 pushd /usr/local/bin
@@ -68,7 +68,7 @@ unzip /tmp/foo.zip
 popd
 rm -f /tmp/foo.zip
 su - centos -c '/opt/chefdk/embedded/bin/gem install knife-openstack'
-su - centos -c '/opt/chefdk/embedded/bin/gem install kitchen-openstack -v 1.8.1'
+su - centos -c '/opt/chefdk/embedded/bin/gem install kitchen-openstack'
 su - centos -c '/opt/chefdk/embedded/bin/gem install knife-backup'
 su - centos -c 'vagrant plugin install vagrant-openstack-provider'
 su - centos -c 'vagrant plugin install vagrant-berkshelf'
