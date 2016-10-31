@@ -13,7 +13,7 @@ firewall --service=ssh
 authconfig --enableshadow --passalgo=sha512 --enablefingerprint
 selinux --enforcing
 timezone --utc Europe/London
-bootloader --location=mbr --driveorder=vda
+bootloader --location=mbr --driveorder=vda --append='console=tty0 console=ttyS0,115200n8'
 zerombr
 clearpart --all --initlabel
 part /boot --fstype ext4 --size=400
@@ -34,9 +34,6 @@ sed -i "/HWADDR/d" /mnt/sysimage/etc/sysconfig/network-scripts/ifcfg-eth*
 rm -f /mnt/sysimage//etc/udev/rules.d/*-persistent-net.rules
 touch /mnt/sysimage/etc/udev/rules.d/75-persistent-net-generator.rules
 echo NOZEROCONF=yes >> /mnt/sysimage/etc/sysconfig/network
-
-sed -i 's/rhgb quiet/quiet console=tty0 console=ttyS0,115200n8/g' /mnt/sysimage/boot/grub/grub.conf
-sed -i 's/^hiddenmenu$/hiddenmenu\nserial\ --unit=0\ --speed=115200\ --word=8\ --parity=no\ --stop=1\nterminal\ --timeout=5\ console\ serial/g' /mnt/sysimage/boot/grub/grub.conf
 
 chroot /mnt/sysimage /sbin/chkconfig sshd off
 
